@@ -1,0 +1,25 @@
+{
+  "name": "trello-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoangduc1203BK/trello-api.git"
+  },
+  "keywords": [],
+  "author": "hoangducdev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hoangduc1203BK/trello-api/issues"
+  },
+  "homepage": "https://github.com/Hoangduc1203BK/trello-api#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2"
+  }
+}
