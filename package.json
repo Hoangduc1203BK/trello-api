@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,11 @@
   "homepage": "https://github.com/Hoangduc1203BK/trello-api#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "joi": "^17.5.0",
+    "mongodb": "^4.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
