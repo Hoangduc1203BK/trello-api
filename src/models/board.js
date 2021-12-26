@@ -14,10 +14,10 @@ const validationSchema = async (data)=>{
  const createNew= async (data)=>{
     try {
         const value=await validationSchema(data)
-        const result=getDB().collection(collectionSchemaName).insertOne(value)
-        console.log(result);
+        const result= await getDB().collection(collectionSchemaName).insertOne(value)
+        return result
     } catch (error) {
-        console.error(error)
+        throw new Error(error)
     }
 }
 export const boardModel={createNew}

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDB,getDB } from "./src/config/mongodb.js";
 import {boardModel} from './src/models/board.js'
 import {cardModel} from './src/models/card.js'
+import {apiv1} from './src/routes/v1/index.js'
 dotenv.config();
 
 connectDB()
@@ -18,16 +19,7 @@ const Main = async () => {
   const PORT = process.env.PORT;
   app.use(express.json());
   let db=await getDB()
-  app.get("/", async (req, res) => {
-    const fakedata={
-        title: "hoangduc",
-        columnId:'column-1',
-        boardId:'board-1',
-        image:'askasmmas'
-    }
-     await cardModel.createNew(fakedata)
-    res.json('done')
-  });
+  app.use('/v1',apiv1)
   app.listen(PORT, (err) => {
     if (err) throw err;
     console.log("Server listening on: ", PORT);
