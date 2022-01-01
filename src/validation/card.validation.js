@@ -1,8 +1,10 @@
 import Joi from "joi"
 import {HttpStatusCode} from '../ultilities/constance/const.js'
-const createCol=async (req,res,next) =>{
+const createCard=async (req,res,next) =>{
     const validationMiddleware =Joi.object({
-        title:Joi.string().min(3).max(30).required()
+        boardId:Joi.string().required(),
+        columnId:Joi.string().required(),
+        title:Joi.string().min(3).max(30).required().trim()
     })
     try {
         await validationMiddleware.validateAsync(req.body,{abortEarly:false} )
@@ -13,4 +15,4 @@ const createCol=async (req,res,next) =>{
         })
     }
 }
-export const BoardValidation={createCol}
+export const CardValidation={createCard}

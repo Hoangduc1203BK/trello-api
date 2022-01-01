@@ -1,5 +1,6 @@
 import Joi from 'joi'
 import { getDB } from '../config/mongodb.js'
+import {ObjectID} from 'mongodb'
 const collectionSchemaName = 'Card'
 const cardSchema=Joi.object({
     title: Joi.string().min(3).max(30).required(),
@@ -15,12 +16,18 @@ const validationSchema = async (data)=>{
 }
  const createNew= async (data)=>{
     try {
-        const value=await validationSchema(data)
-        const result=getDB().collection(collectionSchemaName).insertOne(value)
-        console.log(result);
+        const validateValue=await validationSchema(data)
+        const insertValue={
+            ...validateValue,
+            boardId:ObjectID(validateValue.boardId),
+            columnId:ObjectID(validateValue.columnId)
+        }
+        const result=await getDB().collection(collectionSchemaName).insertOne(insertValue)
+        const response = await getDB().collection(collectionSchemaName).find({_id:ObjectID(result.insertedId.toString())}).toArray()
+        return response[0]
     } catch (error) {
-        console.error(error)
+        throw new Error(error)
     }
 }
-export const cardModel={createNew}
+export const cardModel={createNew,collectionSchemaName }
 
