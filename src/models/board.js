@@ -40,7 +40,8 @@ const getFullBoard=async (id)=>{
         const result=await getDB().collection(collectionSchemaName).aggregate([
             {
                 $match:{
-                    _id:ObjectID(id)
+                    _id:ObjectID(id),
+                    destroy:false
                 }
             },{
                 $lookup:{
@@ -63,5 +64,19 @@ const getFullBoard=async (id)=>{
      throw new Error(error)   
     }
 }
-export const boardModel={createNew, getFullBoard,pushColumn}
+const updateColumnOrder=async (data,id)=>{
+    try {
+        const updateBoard={...data}
+        await getDB().collection(collectionSchemaName).findOneAndUpdate(
+            {_id:ObjectID(id)},
+            {$set:updateBoard},
+            {returnOriginal:false}
+        )
+        const response=await getDB().collection(collectionSchemaName).find({_id:ObjectID(id)}).toArray()
+        return response[0]
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+export const boardModel={createNew, getFullBoard,pushColumn,updateColumnOrder}
 

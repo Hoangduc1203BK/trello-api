@@ -29,12 +29,14 @@ const validationSchema = async (data)=>{
 }
 const update=async (data,id)=>{
     try {
-        const result=await getDB().collection(collectionSchemaName).findOneAndUpdate(
+        data={...data,boardId: ObjectID(data.boardId)}
+        await getDB().collection(collectionSchemaName).findOneAndUpdate(
             {_id:ObjectID(id)},
             {$set:data},
             {returnOriginal:false}
         )
-        return result.value
+        const response=await getDB().collection(collectionSchemaName).find({_id:ObjectID(id)}).toArray()
+        return response[0]
     } catch (error) {
         throw new Error(error)
     }

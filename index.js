@@ -4,6 +4,7 @@ import { connectDB,getDB } from "./src/config/mongodb.js";
 import {boardModel} from './src/models/board.js'
 import {cardModel} from './src/models/card.js'
 import {apiv1} from './src/routes/v1/index.js'
+import cors from 'cors'
 dotenv.config();
 
 connectDB()
@@ -16,6 +17,11 @@ connectDB()
 
 const Main = async () => {
   const app = express();
+  const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200 
+  }
+  app.use(cors(corsOptions))
   const PORT = process.env.PORT;
   app.use(express.json());
   let db=await getDB()

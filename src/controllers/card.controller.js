@@ -10,4 +10,18 @@ const createNewCard= async (data)=>{
         throw new Error(error)
     }
 }
-export const CardColtroller={createNewCard}
+const updateCard = async (data,id)=>{
+    try {
+     const filter={
+         ...data,
+         updateAt:Date.now(),
+     }
+  
+     if(filter._id) delete filter._id
+     const result = await cardModel.updateCard(filter,id)
+     return result;
+    } catch (error) {
+        throw new Error(error)
+    }
+  }
+export const CardColtroller={createNewCard,updateCard}

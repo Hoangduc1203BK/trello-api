@@ -15,4 +15,19 @@ const createCard=async (req,res,next) =>{
         })
     }
 }
-export const CardValidation={createCard}
+const updateCard=async (req,res,next) =>{
+    const validationMiddleware =Joi.object({
+        title:Joi.string().min(3).max(30).trim(),
+        boardId:Joi.string(),
+        columnId:Joi.string(),
+    })
+    try {
+        await validationMiddleware.validateAsync(req.body,{abortEarly:false,allowUnknown:true} )
+        next()
+    } catch (error) {
+        return res.status(HttpStatusCode.BAD_REQUEST).json({
+            error: new Error(error).message
+        })
+    }
+}
+export const CardValidation={createCard,updateCard}

@@ -20,7 +20,6 @@ export function ColumnApi(){
             const result= await ColumnColtroller.updateColumn(req.body,id)
             res.status(HttpStatusCode.OK).json(result)
         } catch (error) {
-            console.log('done');
             res.status(HttpStatusCode.BAD_REQUEST).json({
                 error: new Error(error).message
             })

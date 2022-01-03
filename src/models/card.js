@@ -29,5 +29,32 @@ const validationSchema = async (data)=>{
         throw new Error(error)
     }
 }
-export const cardModel={createNew,collectionSchemaName }
+const deleteCard=async (columnId)=>{
+    await getDB().collection(collectionSchemaName).updateMany(
+        {columnId:columnId},
+        {$set:{destroy:true}}
+    )
+}
+const updateCard=async (data,id)=>{
+    try {
+        data={...data,
+            columnId: ObjectID(data.columnId), boardId:ObjectID(data.boardId)
+        }
+        await getDB().collection(collectionSchemaName).findOneAndUpdate(
+            {_id:ObjectID(id)},
+            {$set:data},
+            {returnOriginal:false}
+        )
+        const response=await getDB().collection(collectionSchemaName).find({_id:ObjectID(id)}).toArray()
+        return response[0]
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+export const cardModel={
+    createNew,
+    updateCard,
+    deleteCard,
+    collectionSchemaName 
+}
 

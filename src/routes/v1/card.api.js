@@ -14,5 +14,16 @@ export const CardApi=()=>{
             })
         }
     })
+    route.put('/updateCardOrder',CardValidation.updateCard,async (req, res)=>{
+        const id=req.query.id
+        try {
+            const result= await CardColtroller.updateCard(req.body,id)
+            res.status(HttpStatusCode.OK).json(result)
+        } catch (error) {
+            res.status(HttpStatusCode.BAD_REQUEST).json({
+                error: new Error(error).message
+            })
+        }
+    })
     return route
 }

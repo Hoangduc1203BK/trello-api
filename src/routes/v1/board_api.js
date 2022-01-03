@@ -25,5 +25,16 @@ export function BoardApi(){
             })
         }
     })
+    route.put('/updateColumnOrder',BoardValidation.updateColumnOrder,async (req, res)=>{
+        const id=req.query.id
+        try {
+            const result= await BoardColtroller.updateColumnOrder(req.body,id)
+            res.status(HttpStatusCode.OK).json(result)
+        } catch (error) {
+            res.status(HttpStatusCode.BAD_REQUEST).json({
+                error: new Error(error).message
+            })
+        }
+    })
     return route
 }

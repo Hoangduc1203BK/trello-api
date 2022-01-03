@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/Hoangduc1203BK/trello-api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "joi": "^17.5.0",
+    "lodash": "^4.17.21",
     "mongodb": "^4.2.2"
   },
   "devDependencies": {
